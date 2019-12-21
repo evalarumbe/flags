@@ -11,8 +11,8 @@ const drawWaves = (wavelength, gap = 0) => {
     const periodCount = getPeriods();
     let xOffset = wavelength / -2; // start offscreen
     let yOffset = wavelength; // keeping these proportional happens to look nice
+    const maxWavesPerRow = Math.ceil(canvas.width / ((periodCount * wavelength) + gap));
     let wavesDrawnPerRow = 0;
-
 
     const drawWave = (x, y, periods) => {
         for (let i = 0; i < periods; i++) {
@@ -25,7 +25,7 @@ const drawWaves = (wavelength, gap = 0) => {
         }
     };
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < maxWavesPerRow; i++) {
         drawWave(xOffset, yOffset, periodCount);
         wavesDrawnPerRow += 1;
         xOffset += (wavelength * periodCount) + gap;
