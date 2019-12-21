@@ -7,6 +7,7 @@ canvas.height = window.innerHeight;
 
 /* sizing */
 const size = 100;
+// TODO: rename xStart to offset
 // TODO: const gap = size / 20;
 
 /* colors */
@@ -26,7 +27,30 @@ const drawV = (xStart = 0) => {
     c.fillRect(xStart, 0, size, size);
     c.strokeRect(xStart, 0, size, size);
     // X, red
-    // TODO
+    c.fillStyle = `rgb(255, 0, 0)`;
+    c.beginPath();
+    // top
+    c.moveTo(xStart, 0);
+    c.lineTo(xStart + size / 6, 0);
+    c.lineTo(xStart + size / 2, size / 3);
+    c.lineTo(xStart + size * 5 / 6, 0);
+    c.lineTo(xStart + size, 0);
+    // right
+    c.lineTo(xStart + size, size / 6);
+    c.lineTo(xStart + size * 2 / 3, size / 2);
+    c.lineTo(xStart + size, size * 5 / 6);
+    c.lineTo(xStart + size, size);
+    // bottom
+    c.lineTo(xStart + size * 5 / 6, size);
+    c.lineTo(xStart + size / 2, size * 2 / 3);
+    c.lineTo(xStart + size / 6, size);
+    c.lineTo(xStart, size);
+    // // left
+    c.lineTo(xStart, size * 5 / 6);
+    c.lineTo(xStart + size / 3, size / 2);
+    c.lineTo(xStart, size / 6);
+    c.lineTo(xStart, 0);
+    c.fill();
 };
 
 const drawA = (xStart = 0) => {
