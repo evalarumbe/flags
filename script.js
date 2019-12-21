@@ -5,17 +5,19 @@ const c = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const drawWaves = (wavelength, gap = 0) => {
-    let yOffset = wavelength; // keeping these proportional happens to look nice
+const drawWaves = (wavelength) => {
+    let yOffset = wavelength * 1.5; // this proportion just happens to look nice
     const maxRows = Math.ceil(canvas.height / (wavelength * 2));
     let rowIndex = 0;
 
     const drawRow = (rowIndex) => {
-        // 3-5 periods (wavelengths) per wave
-        const getPeriods = () => Math.floor((Math.random() * 3) + 3);
-        const periodCount = getPeriods();
-        let xOffset = (rowIndex % 2 === 0) ? wavelength / -2 : wavelength; // start offscreen for odd rows
-        const maxWavesPerRow = Math.ceil(canvas.width / ((periodCount * wavelength) + gap));
+        // periods = number of wavelengths drawn per wave
+        const periods = [2, 3, 5];
+        const getPeriods = () => periods[Math.floor(Math.random() * 3)];
+        let periodCount = getPeriods();
+        let xOffset = (rowIndex % 2 === 0) ? (- wavelength) : wavelength; // start offscreen for odd rows
+        const xGap = wavelength * 3;
+        let waveWidth = 0;
 
         const drawWave = (x, y, periods) => {
             for (let i = 0; i < periods; i++) {
@@ -28,15 +30,20 @@ const drawWaves = (wavelength, gap = 0) => {
             }
         };
 
-        for (let i = 0; i < maxWavesPerRow; i++) {
+        for (let widthDrawn = 0; widthDrawn < canvas.width; widthDrawn += waveWidth) {
             drawWave(xOffset, yOffset, periodCount);
-            xOffset += (wavelength * periodCount) + gap;
+            // update the waveWidth to stop looping when the screen is full
+            waveWidth = (wavelength * periodCount) + xGap;
+            // update the xOffset so the next wave knows where to start
+            xOffset += (wavelength * periodCount) + xGap;
+            // update the perdioCount so the next wave knows how long to be
+            periodCount = getPeriods();
         }
     };
 
     for (let i = 0; i < maxRows; i++) {
         drawRow(rowIndex);
-        yOffset += (wavelength * 2);
+        yOffset += (wavelength * 2); // FIXME: no worko
         rowIndex += 1;
     }
 };
