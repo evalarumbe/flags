@@ -7,7 +7,7 @@ canvas.height = window.innerHeight;
 
 const drawWaves = (wavelength, gap = 0) => {
     let yOffset = wavelength; // keeping these proportional happens to look nice
-    const maxRows = 10; // TODO: calc based on height
+    const maxRows = Math.ceil(canvas.height / (wavelength * 2));
 
     const drawRow = () => {
         // 3-5 periods (wavelengths) per wave
@@ -37,8 +37,6 @@ const drawWaves = (wavelength, gap = 0) => {
         drawRow();
         yOffset += (wavelength * 2);
     }
-
-
 };
 
 const drawFlags = (size, gap) => {
