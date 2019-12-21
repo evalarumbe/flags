@@ -5,6 +5,24 @@ const c = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+const drawWaves = (radius = 50) => {
+    let xOffset = radius * 3;
+    let yOffset = radius * 2;
+
+    const drawWave = (crests) => {
+        for (let i = 0; i < crests; i++) {
+            c.beginPath();
+            c.arc(xOffset, yOffset, radius, 0, Math.PI, false);
+            c.strokeStyle = 'rgba(0, 0, 255)';
+            c.stroke();
+    
+            xOffset += radius * 2;
+        }
+    }
+
+    drawWave(3);
+}
+
 const drawFlags = (size, gap) => {
     /* colors */
 
@@ -68,6 +86,7 @@ const drawFlags = (size, gap) => {
     drawE(200);
     drawV(200 + gap + size);
     drawA(200 + (gap * 2) + (size * 2));
-}
+};
 
-drawFlags(200, 15);
+drawWaves();
+// drawFlags(200, 15);
