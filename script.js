@@ -115,5 +115,5 @@ const drawFlags = (size, gap) => {
     drawA(200 + (gap * 2) + (size * 2));
 };
 
-drawWaves(50, 300);
+drawWaves(50);
 drawFlags(200, 15);
