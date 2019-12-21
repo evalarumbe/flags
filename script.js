@@ -8,12 +8,13 @@ canvas.height = window.innerHeight;
 const drawWaves = (wavelength, gap = 0) => {
     let yOffset = wavelength; // keeping these proportional happens to look nice
     const maxRows = Math.ceil(canvas.height / (wavelength * 2));
+    let rowIndex = 0;
 
-    const drawRow = () => {
+    const drawRow = (rowIndex) => {
         // 3-5 periods (wavelengths) per wave
         const getPeriods = () => Math.floor((Math.random() * 3) + 3);
         const periodCount = getPeriods();
-        let xOffset = wavelength / -2; // start offscreen
+        let xOffset = (rowIndex % 2 === 0) ? wavelength / -2 : wavelength; // start offscreen for odd rows
         const maxWavesPerRow = Math.ceil(canvas.width / ((periodCount * wavelength) + gap));
 
         const drawWave = (x, y, periods) => {
@@ -34,8 +35,9 @@ const drawWaves = (wavelength, gap = 0) => {
     };
 
     for (let i = 0; i < maxRows; i++) {
-        drawRow();
+        drawRow(rowIndex);
         yOffset += (wavelength * 2);
+        rowIndex += 1;
     }
 };
 
