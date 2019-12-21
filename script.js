@@ -5,25 +5,25 @@ const c = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const drawWaves = (radius = 50) => {
-    let xOffset = radius * 3;
-    let yOffset = radius * 2;
+const drawWaves = (wavelength = 100) => {
+    let xOffset = wavelength * 1.5;
+    let yOffset = wavelength;
 
-    const drawWave = (x, y, troughCount) => {
-        for (let i = 0; i < troughCount; i++) {
+    const drawWave = (x, y, periods) => {
+        for (let i = 0; i < periods; i++) {
             c.beginPath();
-            c.arc(x, y, radius, 0, Math.PI, false);
+            c.arc(x, y, wavelength / 2, 0, Math.PI, false);
             c.strokeStyle = 'rgba(0, 0, 255)';
             c.stroke();
     
-            x += radius * 2;
+            x += wavelength;
         }
     };
     
     // Randomize number of troughs (wavelets)
-    // const troughCounts = [3, 5, 7];
+    // const periodsArr = [3, 5, 7];
     // const random = Math.floor(Math.random() * 3);
-    // drawWave(troughCounts[random]);
+    // drawWave(periodsArr[random]);
 
     let wavesDrawnPerRow = 0;
     for (let i = 0; i < 10; i++) {
