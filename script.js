@@ -5,9 +5,14 @@ const c = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const drawWaves = (wavelength = 100) => {
+const drawWaves = (wavelength, gap = 0) => {
+    // 3-5 periods (wavelengths) per wave
+    const getPeriods = () => Math.floor((Math.random() * 2) + 3);
     let xOffset = wavelength * 1.5;
     let yOffset = wavelength;
+    let wavesDrawnPerRow = 0;
+    const periodCount = getPeriods();
+
 
     const drawWave = (x, y, periods) => {
         for (let i = 0; i < periods; i++) {
@@ -19,17 +24,14 @@ const drawWaves = (wavelength = 100) => {
             x += wavelength;
         }
     };
-    
-    // Randomize number of troughs (wavelets)
-    // const periodsArr = [3, 5, 7];
-    // const random = Math.floor(Math.random() * 3);
-    // drawWave(periodsArr[random]);
 
-    let wavesDrawnPerRow = 0;
     for (let i = 0; i < 10; i++) {
-        drawWave(xOffset, yOffset, 3);
+
+        drawWave(xOffset, yOffset, periodCount);
         wavesDrawnPerRow += 1;
+        xOffset += wavelength * periodCount;
     }
+
     console.log(wavesDrawnPerRow);
 
 
@@ -101,5 +103,5 @@ const drawFlags = (size, gap) => {
     drawA(200 + (gap * 2) + (size * 2));
 };
 
-drawWaves();
+drawWaves(100, 300);
 // drawFlags(200, 15);
