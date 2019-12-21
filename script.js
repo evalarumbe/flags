@@ -11,6 +11,8 @@ const flagGap = 15;
 const flagsWidth = (flagSize * flags.length) + (flagGap * (flags.length - 1));
 const flagsXoffset = canvas.width - (canvas.width + flagsWidth) / 2;
 
+const flagYoffset = canvas.height - (canvas.height + flagSize) / 2;
+
 const drawWaves = (wavelength) => {
     const yGap = wavelength * 2.5;  // this proportion just happens to look nice
     let yOffset = Math.floor(yGap / 2); // start with only a small space up top
@@ -56,9 +58,8 @@ const drawWaves = (wavelength) => {
 };
 
 const drawFlags = (size, gap) => {
-    /* TODO: colors */
 
-    const drawE = (xOffset = 0) => {
+    const drawE = (xOffset) => {
         // top part, blue
         c.fillStyle = `rgb(0, 0, 255)`;
         c.fillRect(xOffset, 0, size, size / 2);
@@ -67,7 +68,7 @@ const drawFlags = (size, gap) => {
         c.fillRect(xOffset, (size / 2), size, size / 2);
     };
 
-    const drawV = (xOffset = 0) => {
+    const drawV = (xOffset) => {
         // background, white
         c.fillStyle = `rgb(255, 255, 255)`;
         c.fillRect(xOffset, 0, size, size);
@@ -99,7 +100,7 @@ const drawFlags = (size, gap) => {
         c.fill();
     };
 
-    const drawA = (xOffset = 0) => {
+    const drawA = (xOffset) => {
         // left part, white
         c.fillStyle = `rgb(255, 255, 255)`;
         c.fillRect(xOffset, 0, size / 2, size);
