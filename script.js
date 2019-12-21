@@ -9,21 +9,24 @@ const drawWaves = (radius = 50) => {
     let xOffset = radius * 3;
     let yOffset = radius * 2;
 
-    const drawWave = (troughCount) => {
+    const drawWave = (x, y, troughCount) => {
         for (let i = 0; i < troughCount; i++) {
             c.beginPath();
-            c.arc(xOffset, yOffset, radius, 0, Math.PI, false);
+            c.arc(x, y, radius, 0, Math.PI, false);
             c.strokeStyle = 'rgba(0, 0, 255)';
             c.stroke();
     
-            xOffset += radius * 2;
+            x += radius * 2;
         }
     }
     
     // Randomize number of troughs (wavelets)
-    const troughCounts = [3, 5, 7];
-    const random = Math.floor(Math.random() * 3);
-    drawWave(troughCounts[random]);
+    // const troughCounts = [3, 5, 7];
+    // const random = Math.floor(Math.random() * 3);
+    // drawWave(troughCounts[random]);
+
+    // TODO: randomize x and y inputs below
+    drawWave(xOffset, yOffset, 3);
 
 }
 
