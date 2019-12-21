@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    line-height: 1.3;
+}
+
+html {
+    font-size: 100%;
+}
+
+canvas {
+    background-color: #c00;
+}
