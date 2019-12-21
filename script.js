@@ -7,11 +7,11 @@ canvas.height = window.innerHeight;
 
 const drawWaves = (wavelength, gap = 0) => {
     // 3-5 periods (wavelengths) per wave
-    const getPeriods = () => Math.floor((Math.random() * 2) + 3);
-    let xOffset = wavelength * 1.5;
-    let yOffset = wavelength;
-    let wavesDrawnPerRow = 0;
+    const getPeriods = () => Math.floor((Math.random() * 3) + 3);
     const periodCount = getPeriods();
+    let xOffset = wavelength / -2; // start offscreen
+    let yOffset = wavelength; // keeping these proportional happens to look nice
+    let wavesDrawnPerRow = 0;
 
 
     const drawWave = (x, y, periods) => {
@@ -26,10 +26,9 @@ const drawWaves = (wavelength, gap = 0) => {
     };
 
     for (let i = 0; i < 10; i++) {
-
         drawWave(xOffset, yOffset, periodCount);
         wavesDrawnPerRow += 1;
-        xOffset += wavelength * periodCount;
+        xOffset += (wavelength * periodCount) + gap;
     }
 
     console.log(wavesDrawnPerRow);
@@ -103,5 +102,5 @@ const drawFlags = (size, gap) => {
     drawA(200 + (gap * 2) + (size * 2));
 };
 
-drawWaves(100, 300);
+drawWaves(50, 300);
 // drawFlags(200, 15);
