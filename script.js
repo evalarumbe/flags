@@ -18,20 +18,25 @@ const drawWaves = (radius = 50) => {
     
             x += radius * 2;
         }
-    }
+    };
     
     // Randomize number of troughs (wavelets)
     // const troughCounts = [3, 5, 7];
     // const random = Math.floor(Math.random() * 3);
     // drawWave(troughCounts[random]);
 
-    // TODO: randomize x and y inputs below
-    drawWave(xOffset, yOffset, 3);
+    let wavesDrawnPerRow = 0;
+    for (let i = 0; i < 10; i++) {
+        drawWave(xOffset, yOffset, 3);
+        wavesDrawnPerRow += 1;
+    }
+    console.log(wavesDrawnPerRow);
 
-}
+
+};
 
 const drawFlags = (size, gap) => {
-    /* colors */
+    /* TODO: colors */
 
     const drawE = (xOffset = 0) => {
         // top part, blue
@@ -46,6 +51,7 @@ const drawFlags = (size, gap) => {
         // background, white
         c.fillStyle = `rgb(255, 255, 255)`;
         c.fillRect(xOffset, 0, size, size);
+        
         // X, red
         c.fillStyle = `rgb(255, 0, 0)`;
         c.beginPath();
