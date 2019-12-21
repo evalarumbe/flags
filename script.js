@@ -6,7 +6,8 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const drawWaves = (wavelength) => {
-    let yOffset = wavelength * 1.5; // this proportion just happens to look nice
+    const yGap = wavelength * 2.5;  // this proportion just happens to look nice
+    let yOffset = Math.floor(yGap / 2); // start with only a small space up top
     const maxRows = Math.ceil(canvas.height / (wavelength * 2));
     let rowIndex = 0;
 
@@ -43,7 +44,7 @@ const drawWaves = (wavelength) => {
 
     for (let i = 0; i < maxRows; i++) {
         drawRow(rowIndex);
-        yOffset += (wavelength * 2); // FIXME: no worko
+        yOffset += yGap;
         rowIndex += 1;
     }
 };
@@ -115,4 +116,4 @@ const drawFlags = (size, gap) => {
 };
 
 drawWaves(50, 300);
-// drawFlags(200, 15);
+drawFlags(200, 15);
