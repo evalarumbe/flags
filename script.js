@@ -11,40 +11,41 @@ const size = 100;
 
 /* colors */
 
-const drawE = () => {
+const drawE = (xStart = 0) => {
     // top part, blue
     c.fillStyle = `rgb(0, 0, 255)`;
-    c.fillRect(0, 0, size, size / 2);
+    c.fillRect(xStart, 0, size, size / 2);
     // bottom part, red
     c.fillStyle = `rgb(255, 0, 0)`;
-    c.fillRect(0, (size / 2), size, size / 2);
+    c.fillRect(xStart, (size / 2), size, size / 2);
 };
 
-const drawV = () => {
+const drawV = (xStart = 0) => {
     // background, white
     c.fillStyle = `rgb(255, 255, 255)`;
-    c.fillRect(size, 0, size, size);
-    c.strokeRect(size, 0, size, size);
+    c.fillRect(xStart, 0, size, size);
+    c.strokeRect(xStart, 0, size, size);
     // X, red
     // TODO
 };
 
-const drawA = () => {
+const drawA = (xStart = 0) => {
     // left part, white
     c.fillStyle = `rgb(255, 255, 255)`;
-    c.fillRect(size * 2, 0, size / 2, size);
+    c.fillRect(xStart, 0, size / 2, size);
+
     // right part, blue
     c.fillStyle = `rgb(0, 0, 255)`;
     c.beginPath();
-    c.moveTo(size * 2.5, 0);
-    c.lineTo(size * 3, 0);
-    c.lineTo(size * 2.75, size / 2);
-    c.lineTo(size * 3, size);
-    c.lineTo(size * 2.5, size);
-    c.lineTo(size * 2.5, 0);
+    c.moveTo(xStart + size * 0.5, 0);
+    c.lineTo(xStart + size, 0);
+    c.lineTo(xStart + size * 0.75, size / 2);
+    c.lineTo(xStart + size, size);
+    c.lineTo(xStart + size * 0.5, size);
+    c.lineTo(xStart + size * 0.5, 0);
     c.fill();
 };
 
 drawE();
-drawV();
-drawA();
+drawV(size);
+drawA(size * 2);
