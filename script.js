@@ -7,7 +7,7 @@ canvas.height = window.innerHeight;
 
 /* sizing */
 const size = 100;
-// TODO: const gap = size / 20;
+const gap = size / 20;
 
 /* colors */
 
@@ -24,7 +24,6 @@ const drawV = (xOffset = 0) => {
     // background, white
     c.fillStyle = `rgb(255, 255, 255)`;
     c.fillRect(xOffset, 0, size, size);
-    c.strokeRect(xOffset, 0, size, size);
     // X, red
     c.fillStyle = `rgb(255, 0, 0)`;
     c.beginPath();
@@ -70,5 +69,5 @@ const drawA = (xOffset = 0) => {
 };
 
 drawE(200);
-drawV(200 + size);
-drawA(200 + size * 2);
+drawV(200 + gap + size);
+drawA(200 + (gap * 2) + (size * 2));
