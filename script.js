@@ -4,14 +4,80 @@ const c = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+const flags = [
+    {
+        letter: 'e',
+        render: (x, y, size) => {
+            // top part, blue
+            c.fillStyle = `rgb(0, 0, 255)`;
+            c.fillRect(x, y, size, size / 2);
+            // bottom part, red
+            c.fillStyle = `rgb(255, 0, 0)`;
+            c.fillRect(x, y + (size / 2), size, size / 2);
+        }
+    },
+    {
+        letter: 'v',
+        render: (x, y, size) => {
+            // background, white
+            c.fillStyle = `rgb(255, 255, 255)`;
+            c.fillRect(x, y, size, size);
+            
+            // X, red
+            c.fillStyle = `rgb(255, 0, 0)`;
+            c.beginPath();
+            // top
+            c.moveTo(x, y + 0);
+            c.lineTo(x + size / 6, y + 0);
+            c.lineTo(x + size / 2, y + size / 3);
+            c.lineTo(x + size * 5 / 6, y + 0);
+            c.lineTo(x + size, y + 0);
+            // right
+            c.lineTo(x + size, y + size / 6);
+            c.lineTo(x + size * 2 / 3, y + size / 2);
+            c.lineTo(x + size, y + size * 5 / 6);
+            c.lineTo(x + size, y + size);
+            // bottom
+            c.lineTo(x + size * 5 / 6, y + size);
+            c.lineTo(x + size / 2, y + size * 2 / 3);
+            c.lineTo(x + size / 6, y + size);
+            c.lineTo(x, y + size);
+            // // left
+            c.lineTo(x, y + size * 5 / 6);
+            c.lineTo(x + size / 3, y + size / 2);
+            c.lineTo(x, y + size / 6);
+            c.lineTo(x, y + 0);
+            c.fill();
+        }
+    },
+    {
+        letter: 'a',
+        render: (x, y, size) => {
+            // left part, white
+            c.fillStyle = `rgb(255, 255, 255)`;
+            c.fillRect(x, y, size / 2, size);
+    
+            // right part, blue
+            c.fillStyle = `rgb(0, 0, 255)`;
+            c.beginPath();
+            c.moveTo(x + size * 0.5, y + 0);
+            c.lineTo(x + size, y + 0);
+            c.lineTo(x + size * 0.75, y + size / 2);
+            c.lineTo(x + size, y + size);
+            c.lineTo(x + size * 0.5, y + size);
+            c.lineTo(x + size * 0.5, y + 0);
+            c.fill();
+        }
+    }
+];
+
 // flags are square. flagSize represents height and width
-const flags = ['e', 'v', 'a'];
 const flagSize = 200;
 const flagGap = 15;
 const flagsWidth = (flagSize * flags.length) + (flagGap * (flags.length - 1));
-const flagsXoffset = canvas.width - (canvas.width + flagsWidth) / 2;
+const flagsXOffset = canvas.width - (canvas.width + flagsWidth) / 2;
 
-const flagsYoffset = canvas.height - (canvas.height + flagSize) / 2;
+const flagsYOffset = canvas.height - (canvas.height + flagSize) / 2;
 
 const drawWaves = (wavelength) => {
     const yGap = wavelength * 2.5;  // this proportion just happens to look nice
@@ -57,70 +123,11 @@ const drawWaves = (wavelength) => {
     }
 };
 
-const drawFlags = (size, gap) => {
-
-    const drawE = (x, y) => {
-        // top part, blue
-        c.fillStyle = `rgb(0, 0, 255)`;
-        c.fillRect(x, y, size, size / 2);
-        // bottom part, red
-        c.fillStyle = `rgb(255, 0, 0)`;
-        c.fillRect(x, y + (size / 2), size, size / 2);
-    };
-
-    const drawV = (x, y) => {
-        // background, white
-        c.fillStyle = `rgb(255, 255, 255)`;
-        c.fillRect(x, y, size, size);
-        
-        // X, red
-        c.fillStyle = `rgb(255, 0, 0)`;
-        c.beginPath();
-        // top
-        c.moveTo(x, y + 0);
-        c.lineTo(x + size / 6, y + 0);
-        c.lineTo(x + size / 2, y + size / 3);
-        c.lineTo(x + size * 5 / 6, y + 0);
-        c.lineTo(x + size, y + 0);
-        // right
-        c.lineTo(x + size, y + size / 6);
-        c.lineTo(x + size * 2 / 3, y + size / 2);
-        c.lineTo(x + size, y + size * 5 / 6);
-        c.lineTo(x + size, y + size);
-        // bottom
-        c.lineTo(x + size * 5 / 6, y + size);
-        c.lineTo(x + size / 2, y + size * 2 / 3);
-        c.lineTo(x + size / 6, y + size);
-        c.lineTo(x, y + size);
-        // // left
-        c.lineTo(x, y + size * 5 / 6);
-        c.lineTo(x + size / 3, y + size / 2);
-        c.lineTo(x, y + size / 6);
-        c.lineTo(x, y + 0);
-        c.fill();
-    };
-
-    const drawA = (x, y) => {
-        // left part, white
-        c.fillStyle = `rgb(255, 255, 255)`;
-        c.fillRect(x, y, size / 2, size);
-
-        // right part, blue
-        c.fillStyle = `rgb(0, 0, 255)`;
-        c.beginPath();
-        c.moveTo(x + size * 0.5, y + 0);
-        c.lineTo(x + size, y + 0);
-        c.lineTo(x + size * 0.75, y + size / 2);
-        c.lineTo(x + size, y + size);
-        c.lineTo(x + size * 0.5, y + size);
-        c.lineTo(x + size * 0.5, y + 0);
-        c.fill();
-    };
-
-    drawE(flagsXoffset, flagsYoffset);
-    drawV(flagsXoffset + gap + size, flagsYoffset);
-    drawA(flagsXoffset + (gap * 2) + (size * 2), flagsYoffset);
-};
-
 drawWaves(50);
-drawFlags(flagSize, flagGap);
+
+flags.forEach((flag, i) => {
+    // This freaky logic sets the x offset for each flag based on its index.
+    // The first flag gets only a little offset, second flag starts a bit
+    // further to the right, the third flag even further, etc.
+    flag.render(flagsXOffset + i * (flagGap + flagSize), flagsYOffset, flagSize)
+});
