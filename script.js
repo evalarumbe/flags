@@ -1,9 +1,15 @@
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
-/* TODO: resize */
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+
+// flags are square. flagSize represents height and width
+const flags = ['e', 'v', 'a'];
+const flagSize = 200;
+const flagGap = 15;
+const flagsWidth = (flagSize * flags.length) + (flagGap * (flags.length - 1));
+const flagsXoffset = canvas.width - (canvas.width + flagsWidth) / 2;
 
 const drawWaves = (wavelength) => {
     const yGap = wavelength * 2.5;  // this proportion just happens to look nice
@@ -110,10 +116,10 @@ const drawFlags = (size, gap) => {
         c.fill();
     };
 
-    drawE(200);
-    drawV(200 + gap + size);
-    drawA(200 + (gap * 2) + (size * 2));
+    drawE(flagsXoffset);
+    drawV(flagsXoffset + gap + size);
+    drawA(flagsXoffset + (gap * 2) + (size * 2));
 };
 
 drawWaves(50);
-drawFlags(200, 15);
+drawFlags(flagSize, flagGap);
