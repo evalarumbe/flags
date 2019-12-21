@@ -4,7 +4,12 @@ const c = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// wave logic
+// colors
+const red = '#fc5050';
+const blue = '#415f77';
+const white = '#d1e9ea';
+
+// waves
 const drawWaves = (wavelength) => {
     const yGap = wavelength * 2.5;  // this proportion just happens to look nice
     let yOffset = Math.floor(yGap / 2); // start with only a small space up top
@@ -24,7 +29,7 @@ const drawWaves = (wavelength) => {
             for (let i = 0; i < periods; i++) {
                 c.beginPath();
                 c.arc(x, y, wavelength / 2, 0, Math.PI, false);
-                c.strokeStyle = 'rgba(0, 0, 255)';
+                c.strokeStyle = blue;
                 c.stroke();
 
                 x += wavelength;
@@ -49,18 +54,18 @@ const drawWaves = (wavelength) => {
     }
 };
 
-drawWaves(50);
+drawWaves(30);
 
-// flag logic
+// flags
 const flags = [
     {
         letter: 'e',
         render: (x, y, size) => {
             // top part, blue
-            c.fillStyle = `rgb(0, 0, 255)`;
+            c.fillStyle = blue;
             c.fillRect(x, y, size, size / 2);
             // bottom part, red
-            c.fillStyle = `rgb(255, 0, 0)`;
+            c.fillStyle = red;
             c.fillRect(x, y + (size / 2), size, size / 2);
         }
     },
@@ -68,11 +73,11 @@ const flags = [
         letter: 'v',
         render: (x, y, size) => {
             // background, white
-            c.fillStyle = `rgb(255, 255, 255)`;
+            c.fillStyle = white;
             c.fillRect(x, y, size, size);
             
             // X, red
-            c.fillStyle = `rgb(255, 0, 0)`;
+            c.fillStyle = red;
             c.beginPath();
             // top
             c.moveTo(x, y + 0);
@@ -102,11 +107,11 @@ const flags = [
         letter: 'a',
         render: (x, y, size) => {
             // left part, white
-            c.fillStyle = `rgb(255, 255, 255)`;
+            c.fillStyle = white;
             c.fillRect(x, y, size / 2, size);
     
             // right part, blue
-            c.fillStyle = `rgb(0, 0, 255)`;
+            c.fillStyle = blue;
             c.beginPath();
             c.moveTo(x + size * 0.5, y + 0);
             c.lineTo(x + size, y + 0);
