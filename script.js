@@ -6,32 +6,37 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const drawWaves = (wavelength, gap = 0) => {
-    // 3-5 periods (wavelengths) per wave
-    const getPeriods = () => Math.floor((Math.random() * 3) + 3);
-    const periodCount = getPeriods();
-    let xOffset = wavelength / -2; // start offscreen
     let yOffset = wavelength; // keeping these proportional happens to look nice
-    const maxWavesPerRow = Math.ceil(canvas.width / ((periodCount * wavelength) + gap));
-    let wavesDrawnPerRow = 0;
+    const maxRows = 10; // TODO: calc based on height
 
-    const drawWave = (x, y, periods) => {
-        for (let i = 0; i < periods; i++) {
-            c.beginPath();
-            c.arc(x, y, wavelength / 2, 0, Math.PI, false);
-            c.strokeStyle = 'rgba(0, 0, 255)';
-            c.stroke();
-    
-            x += wavelength;
+    const drawRow = () => {
+        // 3-5 periods (wavelengths) per wave
+        const getPeriods = () => Math.floor((Math.random() * 3) + 3);
+        const periodCount = getPeriods();
+        let xOffset = wavelength / -2; // start offscreen
+        const maxWavesPerRow = Math.ceil(canvas.width / ((periodCount * wavelength) + gap));
+
+        const drawWave = (x, y, periods) => {
+            for (let i = 0; i < periods; i++) {
+                c.beginPath();
+                c.arc(x, y, wavelength / 2, 0, Math.PI, false);
+                c.strokeStyle = 'rgba(0, 0, 255)';
+                c.stroke();
+
+                x += wavelength;
+            }
+        };
+
+        for (let i = 0; i < maxWavesPerRow; i++) {
+            drawWave(xOffset, yOffset, periodCount);
+            xOffset += (wavelength * periodCount) + gap;
         }
     };
 
-    for (let i = 0; i < maxWavesPerRow; i++) {
-        drawWave(xOffset, yOffset, periodCount);
-        wavesDrawnPerRow += 1;
-        xOffset += (wavelength * periodCount) + gap;
+    for (let i = 0; i < maxRows; i++) {
+        drawRow();
+        yOffset += (wavelength * 2);
     }
-
-    console.log(wavesDrawnPerRow);
 
 
 };
