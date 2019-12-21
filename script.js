@@ -9,8 +9,8 @@ const drawWaves = (radius = 50) => {
     let xOffset = radius * 3;
     let yOffset = radius * 2;
 
-    const drawWave = (crests) => {
-        for (let i = 0; i < crests; i++) {
+    const drawWave = (troughCount) => {
+        for (let i = 0; i < troughCount; i++) {
             c.beginPath();
             c.arc(xOffset, yOffset, radius, 0, Math.PI, false);
             c.strokeStyle = 'rgba(0, 0, 255)';
@@ -19,8 +19,12 @@ const drawWaves = (radius = 50) => {
             xOffset += radius * 2;
         }
     }
+    
+    // Randomize number of troughs (wavelets)
+    const troughCounts = [3, 5, 7];
+    const random = Math.floor(Math.random() * 3);
+    drawWave(troughCounts[random]);
 
-    drawWave(3);
 }
 
 const drawFlags = (size, gap) => {
