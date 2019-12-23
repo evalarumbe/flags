@@ -7,9 +7,11 @@
 }
 
 html {
+    height: 100%;
     font-size: 100%;
-}
-
-canvas {
-    background-color: rgb(62, 233, 255);
+    background-color: #3ee9ff;
+    color: #415f77;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
