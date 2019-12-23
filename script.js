@@ -11,19 +11,22 @@ const colors = {
 };
 
 const renderWaves = (wavelength) => {
-    const yGap = wavelength * 2.5;  // this proportion just happens to look nice
-    let yOffset = Math.floor(yGap / 2); // start with only a small space up top
     const maxRows = Math.ceil(canvas.height / (wavelength * 2));
-    let rowIndex = 0;
+    const yGap = wavelength * 2.5;  // arbitrary proportion just happens to look nice
+    let yOffset = Math.floor(yGap / 2); // start with only a small space up top
+    let rowIndex = 0; // this allows us to alternate which rows start offscreen
 
     const renderRow = (rowIndex) => {
-        // periods = number of wavelengths drawn per wave
+        // periods are the number of wavelengths drawn per wave.
+        // randomly decide how big each wave should be, 
+        // based on some arbitrary values that look nice
         const periods = [2, 3, 5];
         const getPeriods = () => periods[Math.floor(Math.random() * 3)];
-        let periodCount = getPeriods();
-        let xOffset = (rowIndex % 2 === 0) ? (- wavelength) : wavelength; // start offscreen for odd rows
-        const xGap = wavelength * 3;
-        let waveWidth = 0;
+        let periodCount = getPeriods(); 
+
+        let xOffset = (rowIndex % 2 === 0) ? (- wavelength) : wavelength; // start offscreen for even rows
+        const xGap = wavelength * 3; // arbitrary value just looks nice
+        let waveWidth = 0; // used to decide when we're done rendering each row
 
         const drawWave = (x, y, periods) => {
             for (let i = 0; i < periods; i++) {
@@ -36,17 +39,19 @@ const renderWaves = (wavelength) => {
             }
         };
 
+        // render waves until we reach the end of the canvas
         for (let widthDrawn = 0; widthDrawn < canvas.width; widthDrawn += waveWidth) {
             drawWave(xOffset, yOffset, periodCount);
             // update the waveWidth to stop looping when the screen is full
             waveWidth = (wavelength * periodCount) + xGap;
             // update the xOffset so the next wave knows where to start
             xOffset += (wavelength * periodCount) + xGap;
-            // update the perdioCount so the next wave knows how long to be
+            // update the periodCount so the next wave knows how long to be
             periodCount = getPeriods();
         }
     };
 
+    // render rows until we reach the end of the canvas
     for (let i = 0; i < maxRows; i++) {
         renderRow(rowIndex);
         yOffset += yGap;
